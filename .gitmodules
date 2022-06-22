@@ -1,6 +1,6 @@
 [submodule "QUIC-Ivy"]
 	path = QUIC-Ivy
-	url = https://github.com/ElNiak/QUIC-Ivy.git
+	url = git@github.com:ElNiak/QUIC-Ivy.git
 	branch = quic-rfc9000 # rfc9000
 [submodule "quic-implementations/aioquic"]
 	path = quic-implementations/aioquic
