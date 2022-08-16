@@ -1845,7 +1845,7 @@ sending id finish
 ": error: assumption failed
 quic_server_test_stream_vuln.ivy: line 400: error: assumption failed
 output directory: temp/368
-implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementations/picoquic-vuln
+implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementation/picoquic-vuln
 implementation command: ./picoquicdemo -D -L -l - 
 ../quic_server_test_stream_vuln (0) ...
 implementation command: ['./picoquicdemo', '-D', '-L', '-l', '-']

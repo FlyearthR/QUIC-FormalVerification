@@ -1,5 +1,5 @@
 path = /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/489
-implementation directory: /QUIC-FormalVerification/quic-implementations/quic-go/server/
+implementation directory: /QUIC-FormalVerification/quic-implementation/quic-go/server/
 implementation command: ./server -c /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/cert.pem -k /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/priv.key -p 4443 127.0.0.1
 quic_server_test_0rtt
 [<utils.IvyTest.IvyTest object at 0x7f79d8d915f8>]

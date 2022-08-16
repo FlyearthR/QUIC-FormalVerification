@@ -269,7 +269,7 @@ quic_crypto_length
 
 lower.recv   s 0x555585789610
 ptls_is_psk_handshake= 0
-quic_client_test_0rtt_max: /QUIC-FormalVerification/quic-implementations/picotls/lib/picotls.c:5338: ptls_server_handle_message: Assertion `input' failed.
+quic_client_test_0rtt_max: /QUIC-FormalVerification/quic-implementation/picotls/lib/picotls.c:5338: ptls_server_handle_message: Assertion `input' failed.
 timeout: the monitored command dumped core
 Aborted
 /bin/sh: 1: sleep: not found

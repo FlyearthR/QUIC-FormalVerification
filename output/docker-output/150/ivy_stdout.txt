@@ -1,5 +1,5 @@
 path = /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/150
-implementation directory: /QUIC-FormalVerification/quic-implementations/picoquic
+implementation directory: /QUIC-FormalVerification/quic-implementation/picoquic
 implementation command: ./picoquicdemo -l - -D -L -q /QUIC-FormalVerification/qlogs/picoquic
 quic_server_test_0rtt
 [<utils.IvyTest.IvyTest object at 0x7f79d8d915f8>]

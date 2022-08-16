@@ -53,7 +53,7 @@
    Compiling tinyvec v1.6.0
    Compiling ring v0.16.20
    Compiling humantime v1.3.0
-   Compiling quiche v0.10.0 (/QUIC-FormalVerification/quic-implementations/quiche)
+   Compiling quiche v0.10.0 (/QUIC-FormalVerification/quic-implementation/quiche)
    Compiling unicode-normalization v0.1.19
    Compiling quote v1.0.18
    Compiling net2 v0.2.37
@@ -71,4 +71,4 @@
    Compiling serde_with_macros v1.5.2
    Compiling serde_with v1.14.0
    Compiling docopt v1.1.1
-   Compiling qlog v0.5.0 (/QUIC-FormalVerification/quic-implementations/quiche/tools/qlog)
+   Compiling qlog v0.5.0 (/QUIC-FormalVerification/quic-implementation/quiche/tools/qlog)

@@ -1,5 +1,5 @@
 path = /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/27
-implementation directory: /QUIC-FormalVerification/quic-implementations/quinn/
+implementation directory: /QUIC-FormalVerification/quic-implementation/quinn/
 implementation command: cargo run -vv --example server /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/index.html --listen 127.0.0.1:4443
 quic_server_test_0rtt
 [<utils.IvyTest.IvyTest object at 0x7fe2e9679240>]

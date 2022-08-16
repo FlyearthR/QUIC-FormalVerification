@@ -1,5 +1,5 @@
 path = /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/11
-implementation directory: /QUIC-FormalVerification/quic-implementations/mvfst/_build/build/quic/samples/
+implementation directory: /QUIC-FormalVerification/quic-implementation/mvfst/_build/build/quic/samples/
 implementation command: ./echo -mode=server -host=127.0.0.1 -port=4443  -v=10 -pr=false 
 quic_server_test_0rtt
 [<utils.IvyTest.IvyTest object at 0x7fc60c9ac4e0>]

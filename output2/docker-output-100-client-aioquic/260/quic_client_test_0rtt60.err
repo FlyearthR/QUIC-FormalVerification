@@ -1,4 +1,4 @@
-/QUIC-FormalVerification/quic-implementations/aioquic/src/aioquic/quic/packet.py:8: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography and will be removed in a future release.
+/QUIC-FormalVerification/quic-implementation/aioquic/src/aioquic/quic/packet.py:8: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography and will be removed in a future release.
   from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 2022-06-18 06:39:02,039 DEBUG asyncio Using selector: EpollSelector
 2022-06-18 06:39:02,049 DEBUG quic [4bbec3b1c7fada0a] TLS State.CLIENT_HANDSHAKE_START -> State.CLIENT_EXPECT_SERVER_HELLO
@@ -16,7 +16,7 @@
 2022-06-18 06:39:02,856 DEBUG quic [4bbec3b1c7fada0a] Sending PING (probe) in packet 6
 2022-06-18 06:39:03,965 INFO quic [4bbec3b1c7fada0a] Connection close code 0x0, reason 
 2022-06-18 06:39:03,966 DEBUG quic [4bbec3b1c7fada0a] QuicConnectionState.CONNECTED -> QuicConnectionState.DRAINING
-/QUIC-FormalVerification/quic-implementations/aioquic/src/aioquic/quic/packet.py:8: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography and will be removed in a future release.
+/QUIC-FormalVerification/quic-implementation/aioquic/src/aioquic/quic/packet.py:8: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography and will be removed in a future release.
   from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 2022-06-18 06:39:13,502 DEBUG asyncio Using selector: EpollSelector
 2022-06-18 06:39:13,513 DEBUG quic [7c00dce5879246d3] TLS State.CLIENT_HANDSHAKE_START -> State.CLIENT_EXPECT_SERVER_HELLO

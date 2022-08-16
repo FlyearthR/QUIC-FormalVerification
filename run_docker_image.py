@@ -38,7 +38,7 @@ import os
 
 
 SOURCE_DIR = os.getenv('PWD')
-IMPLEM_DIR = SOURCE_DIR + '/quic-implementations'
+IMPLEM_DIR = SOURCE_DIR + '/quic-implementation'
 
 def main(argv):     
     args_parser = ArgumentParser()

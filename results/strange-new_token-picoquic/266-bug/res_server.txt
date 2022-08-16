@@ -2821,7 +2821,7 @@ encrypt_cipher end [62,152,240,216,152]
 sending id: client addr: 2130706433 port: 4443
 sending id finish
 output directory: temp/266
-implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementations/picoquic-vuln
+implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementation/picoquic-vuln
 implementation command: ./picoquicdemo -D -L -l - 
 ../quic_server_test_retry_reuse_key (0) ...
 implementation command: ['./picoquicdemo', '-D', '-L', '-l', '-']

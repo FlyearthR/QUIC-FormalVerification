@@ -1,5 +1,5 @@
 path = /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/330
-implementation directory: /QUIC-FormalVerification/quic-implementations/aioquic
+implementation directory: /QUIC-FormalVerification/quic-implementation/aioquic
 implementation command: python3 examples/http3_client.py --zero-rtt -s /QUIC-FormalVerification/tickets/ticket.bin -l /QUIC-FormalVerification/tls-keys/secret.log -v -q /QUIC-FormalVerification/qlogs/aioquic/ --ca-certs tests/pycacert.pem -i --insecure --legacy-http https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html https://localhost:4443/index.html
 quic_client_test_0rtt_invalid
 [<utils.IvyTest.IvyTest object at 0x7febf6b0b5c0>]

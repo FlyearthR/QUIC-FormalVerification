@@ -17,7 +17,7 @@ from utils.CustomFormatter import CustomFormatter
 import os
 
 SOURCE_DIR =  os.getenv('PWD')
-IMPLEM_DIR =  SOURCE_DIR + '/quic-implementations'
+IMPLEM_DIR =  SOURCE_DIR + '/quic-implementation'
 
 # Set environment variables
 os.environ['PROOTPATH'] = SOURCE_DIR
@@ -82,17 +82,17 @@ def update_includes_ptls():
                                                 shell=True, executable="/bin/bash").wait()
 
     #echo "CP picotls lib"
-    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementations/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib", 
+    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementation/picotls/libpicotls-core.a /usr/local/lib/python2.7/dist-packages/ivy/lib", 
                                                 shell=True, executable="/bin/bash").wait()
-    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementations/picotls/libpicotls-core.a " + SOURCE_DIR + "/QUIC-Ivy/ivy/lib", 
+    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementation/picotls/libpicotls-core.a " + SOURCE_DIR + "/QUIC-Ivy/ivy/lib", 
                                                 shell=True, executable="/bin/bash").wait()
-    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementations/picotls/libpicotls-minicrypto.a /usr/local/lib/python2.7/dist-packages/ivy/lib", 
+    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementation/picotls/libpicotls-minicrypto.a /usr/local/lib/python2.7/dist-packages/ivy/lib", 
                                                 shell=True, executable="/bin/bash").wait()
-    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementations/picotls/libpicotls-minicrypto.a " + SOURCE_DIR + "/QUIC-Ivy/ivy/lib", 
+    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementation/picotls/libpicotls-minicrypto.a " + SOURCE_DIR + "/QUIC-Ivy/ivy/lib", 
                                                 shell=True, executable="/bin/bash").wait()
-    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementations/picotls/libpicotls-openssl.a /usr/local/lib/python2.7/dist-packages/ivy/lib", 
+    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementation/picotls/libpicotls-openssl.a /usr/local/lib/python2.7/dist-packages/ivy/lib", 
                                                 shell=True, executable="/bin/bash").wait()
-    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementations/picotls/libpicotls-openssl.a " + SOURCE_DIR + "/QUIC-Ivy/ivy/lib", 
+    subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/quic-implementation/picotls/libpicotls-openssl.a " + SOURCE_DIR + "/QUIC-Ivy/ivy/lib", 
                                                 shell=True, executable="/bin/bash").wait()
 
     subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/ressources/include/picotls.h /usr/local/lib/python2.7/dist-packages/ivy/include", 
@@ -100,11 +100,11 @@ def update_includes_ptls():
     subprocess.Popen("sudo /bin/cp -f " + SOURCE_DIR + "/ressources/include/picotls.h " + SOURCE_DIR + "/QUIC-Ivy/ivy/include", 
                                                 shell=True, executable="/bin/bash").wait()
 
-    # cp -f " + SOURCE_DIR + "/quic-implementations/picotls/include/picotls.h /usr/local/lib/python2.7/dist-packages/ivy/include
-    # cp -f " + SOURCE_DIR + "/quic-implementations/picotls/include/picotls.h " + SOURCE_DIR + "/QUIC-Ivy/ivy/include
-    subprocess.Popen("sudo /bin/cp -r -f " + SOURCE_DIR + "/quic-implementations/picotls/include/picotls/. /usr/local/lib/python2.7/dist-packages/ivy/include/picotls", 
+    # cp -f " + SOURCE_DIR + "/quic-implementation/picotls/include/picotls.h /usr/local/lib/python2.7/dist-packages/ivy/include
+    # cp -f " + SOURCE_DIR + "/quic-implementation/picotls/include/picotls.h " + SOURCE_DIR + "/QUIC-Ivy/ivy/include
+    subprocess.Popen("sudo /bin/cp -r -f " + SOURCE_DIR + "/quic-implementation/picotls/include/picotls/. /usr/local/lib/python2.7/dist-packages/ivy/include/picotls", 
                                                 shell=True, executable="/bin/bash").wait()
-    subprocess.Popen("sudo /bin/cp -r -f " + SOURCE_DIR + "/quic-implementations/picotls/include/picotls/. " + SOURCE_DIR + "/QUIC-Ivy/ivy/include/picotls", 
+    subprocess.Popen("sudo /bin/cp -r -f " + SOURCE_DIR + "/quic-implementation/picotls/include/picotls/. " + SOURCE_DIR + "/QUIC-Ivy/ivy/include/picotls", 
                                                 shell=True, executable="/bin/bash").wait()
 
     os.chdir(SOURCE_DIR)

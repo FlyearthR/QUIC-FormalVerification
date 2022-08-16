@@ -1,14 +1,14 @@
 path = /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/258
 implementation directory: /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/
-implementation command: /QUIC-FormalVerification/quic-implementations/quant/Debug/bin/server -x 1000 -d . -o -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600 -v 5 -q /QUIC-FormalVerification/qlogs/quant -l /QUIC-FormalVerification/tls-keys/secret.log
+implementation command: /QUIC-FormalVerification/quic-implementation/quant/Debug/bin/server -x 1000 -d . -o -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600 -v 5 -q /QUIC-FormalVerification/qlogs/quant -l /QUIC-FormalVerification/tls-keys/secret.log
 quic_server_test_0rtt
 [<utils.IvyTest.IvyTest object at 0x7f3bebaa8080>]
-/QUIC-FormalVerification/quic-implementations/quant/Debug/bin/server -x 1000 -d . -o -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600 -v 5 -q /QUIC-FormalVerification/qlogs/quant -l /QUIC-FormalVerification/tls-keys/secret.log
+/QUIC-FormalVerification/quic-implementation/quant/Debug/bin/server -x 1000 -d . -o -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600 -v 5 -q /QUIC-FormalVerification/qlogs/quant -l /QUIC-FormalVerification/tls-keys/secret.log
 /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/build/quic_server_test_0rtt (58) ...
 /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/258/quic_server_test_0rtt58.out
 /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/258/quic_server_test_0rtt58.err
 /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/258/quic_server_test_0rtt58.iev
-implementation command: exec /QUIC-FormalVerification/quic-implementations/quant/Debug/bin/server -x 1000 -d . -o -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600 -v 5 -q /QUIC-FormalVerification/qlogs/quant -l /QUIC-FormalVerification/tls-keys/secret.log
+implementation command: exec /QUIC-FormalVerification/quic-implementation/quant/Debug/bin/server -x 1000 -d . -o -c leaf_cert.pem -k leaf_cert.key -p 4443 -t 3600 -v 5 -q /QUIC-FormalVerification/qlogs/quant -l /QUIC-FormalVerification/tls-keys/secret.log
 quic_process pid: 7745
 iclient = 0
 quic_server_test_0rtt

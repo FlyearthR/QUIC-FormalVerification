@@ -578,7 +578,7 @@ warning: `rustls-native-certs` (lib) generated 1 warning
        Fresh yasna v0.4.0
        Fresh tracing-subscriber v0.2.25
        Fresh tracing-futures v0.2.5
-       Fresh quinn-proto v0.7.0 (/QUIC-FormalVerification/quic-implementations/quinn/quinn-proto)
+       Fresh quinn-proto v0.7.0 (/QUIC-FormalVerification/quic-implementation/quinn/quinn-proto)
 warning: field is never read: `first`
    --> quinn-proto/src/packet.rs:473:9
     |
@@ -591,7 +591,7 @@ warning: field is never read: `first`
 warning: `quinn-proto` (lib) generated 1 warning
        Fresh rcgen v0.8.14
        Fresh structopt v0.3.26
-       Fresh quinn v0.7.0 (/QUIC-FormalVerification/quic-implementations/quinn/quinn)
+       Fresh quinn v0.7.0 (/QUIC-FormalVerification/quic-implementation/quinn/quinn)
     Finished dev [unoptimized + debuginfo] target(s) in 0.13s
      Running `target/debug/examples/server /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/index.html --listen '127.0.0.1:4443'`
 listening on 127.0.0.1:4443

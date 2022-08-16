@@ -3615,7 +3615,7 @@ compute_retry_integrity_tag finish
 "
 /usr/local/lib/python2.7/dist-packages/ivy/include/1.7/quic_packet_retry.ivy: line 227: error: assertion failed
 output directory: temp/268
-implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementations/picoquic
+implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementation/picoquic
 implementation command: ./picoquicdemo -l - -D -L -q /home/user/Documents/QUIC-RFC9000/qlogs/picoquic
 ../quic_server_test_retry_reuse_key (0) ...
 implementation command: ['./picoquicdemo', '-l', '-', '-D', '-L', '-q', '/home/user/Documents/QUIC-RFC9000/qlog/picoquic', '-r']

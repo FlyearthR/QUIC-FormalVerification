@@ -1,5 +1,5 @@
 path = /QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic/test/temp/120
-implementation directory: /QUIC-FormalVerification/quic-implementations/quiche/
+implementation directory: /QUIC-FormalVerification/quic-implementation/quiche/
 implementation command: RUST_LOG="debug" RUST_BACKTRACE=1 cargo run --manifest-path=tools/apps/Cargo.toml --bin quiche-client -- https://localhost:4443/index.html --dump-json --session-file /QUIC-FormalVerification/tickets/ticket.bin --wire-version ff00001d --no-verify --body / -n 5
 quic_client_test_0rtt
 [<utils.IvyTest.IvyTest object at 0x7f1818938f98>]

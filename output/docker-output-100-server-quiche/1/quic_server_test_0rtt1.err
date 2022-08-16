@@ -1,4 +1,4 @@
-   Compiling quiche v0.10.0 (/QUIC-FormalVerification/quic-implementations/quiche)
+   Compiling quiche v0.10.0 (/QUIC-FormalVerification/quic-implementation/quiche)
    Compiling syn v1.0.96
    Compiling regex v1.5.6
    Compiling env_logger v0.6.2

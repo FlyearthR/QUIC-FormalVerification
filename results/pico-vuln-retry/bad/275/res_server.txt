@@ -4983,7 +4983,7 @@ sourceID data_remaining 0
 net.recv 2 
 RECEIVING finsh
 output directory: temp/275
-implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementations/picoquic-vuln
+implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementation/picoquic-vuln
 implementation command: ./picoquicdemo -D -L -l - 
 ../quic_server_test_retry_reuse_key (0) ...
 implementation command: ['./picoquicdemo', '-l', 'n', '-D', '-L', '-r']

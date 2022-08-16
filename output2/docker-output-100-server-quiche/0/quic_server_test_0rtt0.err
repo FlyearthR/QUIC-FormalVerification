@@ -65,7 +65,7 @@
    Compiling indexmap v1.8.2
    Compiling ring v0.16.20
    Compiling humantime v1.3.0
-   Compiling quiche v0.10.0 (/QUIC-FormalVerification/quic-implementations/quiche)
+   Compiling quiche v0.10.0 (/QUIC-FormalVerification/quic-implementation/quiche)
    Compiling unicode-normalization v0.1.19
    Compiling quote v1.0.18
    Compiling iovec v0.1.4

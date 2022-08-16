@@ -2765,7 +2765,7 @@ RECEIVING finsh
 ": error: assumption failed
 quic_server_test_retry.ivy: line 725: error: assumption failed
 output directory: temp/386
-implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementations/quic-go/server/
+implementation directory: /home/user/Documents/QUIC-RFC9000/quic-implementation/quic-go/server/
 implementation command: ./server -c /home/user/Documents/QUIC-RFC9000/QUIC-Ivy/doc/examples/quic/leaf_cert.pem -k /home/user/Documents/QUIC-RFC9000/QUIC-Ivy/doc/examples/quic/leaf_cert.key -p 4443 127.0.0.1
 ../quic_server_test_retry (0) ...
 implementation command: ['./server', '-c', '/home/user/Documents/QUIC-RFC9000/QUIC-Ivy/doc/examples/quic/leaf_cert.pem', '-k', '/home/user/Documents/QUIC-RFC9000/QUIC-Ivy/doc/examples/quic/leaf_cert.key', '-r', '-p', '4443', '127.0.0.1']
