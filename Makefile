@@ -2,7 +2,7 @@ NPROC:=$(shell nproc)
 
 # TODO for docker, more elegant
 clean:
-	docker kill $(docker ps -q)
+	#docker kill $(docker ps -q)
 	docker image prune -a
 
 install:
@@ -11,10 +11,11 @@ install:
 	cd QUIC-Ivy; \
 	git submodule update --init --recursive; \
 	git submodule update --recursive; \
-	git checkout quic-rfc9000; \
+	git checkout shadow; \
 	mkdir doc/examples/quic/build; mkdir doc/examples/quic/test/temp; \
 	cd submodules/picotls/; \
 	git checkout 047c5fe20bb9ea91c1caded8977134f19681ec76
+	make build-docker-compose-full
 
 ###################################################################################################
 # BUILDER
@@ -26,8 +27,8 @@ install:
 
 # IMPLEM="picoquic" make build-docker
 build-docker:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 	docker build -t ubuntu-ivy -f Dockerfile.ubuntu .
 	docker build -t ivy -f Dockerfile.ivy_1 .
 	docker build -t shadow-ivy -f Dockerfile.shadow .
@@ -37,39 +38,54 @@ build-docker:
 
 # IMPLEM="picoquic" make build-docker-ivy
 build-docker-ivy:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 	docker build -t $(IMPLEM) -f Dockerfile.$(IMPLEM) --build-arg image=shadow-ivy-picotls .
 	docker build -t $(IMPLEM)-ivy -f Dockerfile.ivy_2 --build-arg image=$(IMPLEM) .
 
+build-docker-ivy-appmap:
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
+	docker build -t $(IMPLEM) -f Dockerfile.$(IMPLEM) --build-arg image=shadow-ivy-picotls .
+	docker build -t $(IMPLEM)-ivy -f Dockerfile.ivy_2 --build-arg image=$(IMPLEM) .
+	docker build -t $(IMPLEM)-ivy-appmap -f Dockerfile.appmap --build-arg image=$(IMPLEM)-ivy .
+
+
 # build-allinone-docker-ivy:
-# 	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-# 	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+# 	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+# 	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 # 	docker build -t $(IMPLEM) -f Dockerfile.$(IMPLEM) --build-arg image=shadow-ivy-picotls .
 # 	docker build -t $(IMPLEM)-ivy -f Dockerfile.ivy_2 --build-arg image=$(IMPLEM) .
 
 # IMPLEM="picoquic" make build-docker-ivy-short
 build-docker-ivy-short:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 	docker build -t $(IMPLEM)-ivy -f Dockerfile.ivy_2 --build-arg image=$(IMPLEM) .
 
 # IMPLEM="picoquic" make build-docker-ivy-gperf
 build-docker-ivy-gperf:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build .
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build .
 	docker build -t $(IMPLEM) -f Dockerfile.$(IMPLEM) --build-arg image=shadow-ivy-picotls .
 	docker build -t $(IMPLEM)-ivy -f Dockerfile.ivy_2 --build-arg image=$(IMPLEM) .
 	docker build -t $(IMPLEM)-ivy-gperf -f Dockerfile.gperf --build-arg image=$(IMPLEM) .
 
 build-docker-compose:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build .
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build .
 	IMPLEM="picoquic" make build-docker-ivy
 	IMPLEM="quant" make build-docker-ivy
 	make build-docker-visualizer
 	make build-docker-ivy-standalone-short
-	
+
+build-docker-compose-full:
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build .
+	IMPLEM="picoquic" make build-docker
+	IMPLEM="quant" make build-docker
+	make build-docker-visualizer
+	make build-docker-ivy-standalone
 
 # ----------------------------
 # Standalone TODO
@@ -82,22 +98,22 @@ build-docker-visualizer:
 # TODO make lighter -> remove all ivy stuff only webserver
 # make build-docker-ivy-standalone
 build-docker-ivy-standalone:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 	docker build -t ubuntu-ivy -f Dockerfile.ubuntu .
 	docker build -t ivy -f Dockerfile.ivy_1 .
 	docker build -t ivy-picotls -f Dockerfile.picotls --build-arg image=ivy .
 	docker build -t ivy-picotls-standalone -f Dockerfile.ivy_2 --build-arg image=ivy-picotls .
 
 build-docker-ivy-standalone-short:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 	docker build -t ivy-picotls-standalone -f Dockerfile.ivy_2 --build-arg image=ivy-picotls .
 
 # IMPLEM="picoquic" make build-docker-implem
 build-docker-implem:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 	docker build -t ubuntu-ivy -f Dockerfile.ubuntu .
 	docker build -t ivy-picotls -f Dockerfile.picotls --build-arg image=ubuntu-ivy .
 	docker build -t $(IMPLEM)-standalone -f Dockerfile.$(IMPLEM) --build-arg image=ivy-picotls .
@@ -119,16 +135,16 @@ launch-gui:
 			   -v $(PWD)/tls-keys:/tmp/QUIC-FormalVerification/tls-keys \
 			   -v $(PWD)/tickets:/tmp/QUIC-FormalVerification/tickets \
 			   -v $(PWD)/qlogs:/tmp/QUIC-FormalVerification/qlogs \
-			   -v $(PWD)/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic \
-			   -v $(PWD)/QUIC-Ivy/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/ivy_to_cpp.py \
-			   -v $(PWD)/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7 \
+			   -v $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/include/1.8:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.8 \
 			   -v /tmp/.X11-unix:/tmp/.X11-unix \
     		   -e DISPLAY=$(DISPLAY) \
 			   -it $(IMPLEM)-ivy python3 run_experiments.py --update_include_tls \
 			   --timeout 180 --implementations $(IMPLEM) --gui --compile  --initial_version 29 --alpn hq-29 --docker $(OPT)
 
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 
 # IMPLEM="picoquic" make launch-webapp
 launch-webapp:
@@ -137,33 +153,53 @@ launch-webapp:
 			   -v $(PWD)/tls-keys:/tmp/QUIC-FormalVerification/tls-keys \
 			   -v $(PWD)/tickets:/tmp/QUIC-FormalVerification/tickets \
 			   -v $(PWD)/qlogs:/tmp/QUIC-FormalVerification/qlogs \
-			   -v $(PWD)/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic \
-			   -v $(PWD)/QUIC-Ivy/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/ivy_to_cpp.py \
-			   -v $(PWD)/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7 \
+			   -v $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/include/1.8:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.8 \
     		   -e DISPLAY=$(DISPLAY) \
 			   -it $(IMPLEM)-ivy python3 run_experiments.py --update_include_tls \
 			   --timeout 180 --implementations $(IMPLEM) --webapp --compile  --initial_version 29 --alpn hq-29 --docker $(OPT)
 
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 
 
 # IMPLEM="picoquic" MODE="client" CATE="global_test" ITER="1" OPT="--vnet" make test-draft29
 # IMPLEM="picoquic" MODE="client" CATE="global_test" ITER="1" OPT="--vnet" make test-draft29
-# IMPLEM="picoquic" MODE="client" CATE="global_test" ITER="3" OPT="" make test-draft29
+# IMPLEM="picoquic" MODE="client" CATE="global_test" ITER="1" OPT="" make test-draft29
 test-draft29:
 	docker run --privileged --cpus="$(NPROC).0" \
 			   -v $(PWD)/tls-keys:/tmp/QUIC-FormalVerification/tls-keys \
 			   -v $(PWD)/tickets:/tmp/QUIC-FormalVerification/tickets \
 			   -v $(PWD)/qlogs:/tmp/QUIC-FormalVerification/qlogs \
-			   -v $(PWD)/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic \
-			   -v $(PWD)/QUIC-Ivy/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/ivy_to_cpp.py \
-			   -v $(PWD)/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7 \
+			   -v $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/ivy_tracer.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_tracer.py \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/ivy_compiler.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_compiler.py \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/include/1.8:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.8 \
 			   -it $(IMPLEM)-ivy python3 run_experiments.py --mode $(MODE) --categories $(CATE) --update_include_tls \
 			   --timeout 180 --implementations $(IMPLEM) --iter $(ITER) --compile  --initial_version 29 --alpn hq-29 --docker $(OPT) || true
 
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
+
+# IMPLEM="picoquic" MODE="client" CATE="global_test" ITER="1" OPT="--vnet" make test-draft29-appmap
+test-draft29-appmap:
+	#-v $(PWD)/run_experiments.py:/tmp/QUIC-FormalVerification/run_experiments.py \
+	docker run --privileged --cpus="$(NPROC).0" \
+			   -e APPMAP=true \
+			   -v $(PWD)/tls-keys:/tmp/QUIC-FormalVerification/tls-keys \
+			   -v $(PWD)/tickets:/tmp/QUIC-FormalVerification/tickets \
+			   -v $(PWD)/qlogs:/tmp/QUIC-FormalVerification/qlogs \
+			   -v $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/include/1.8:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.8 \
+			   -it $(IMPLEM)-ivy-appmap python3 run_experiments.py --mode $(MODE) --categories $(CATE) --update_include_tls \
+			   --timeout 180 --implementations $(IMPLEM) --iter $(ITER) --compile  --initial_version 29 --alpn hq-29 --docker $(OPT) || true
+
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
+
 
 # IMPLEM="picoquic" MODE="client" CATE="attacks_test" ITER="1" OPT="--vnet" make gperf-draft29
 gperf-draft29:
@@ -171,14 +207,14 @@ gperf-draft29:
 			   -v $(PWD)/tls-keys:/tmp/QUIC-FormalVerification/tls-keys \
 			   -v $(PWD)/tickets:/tmp/QUIC-FormalVerification/tickets \
 			   -v $(PWD)/qlogs:/tmp/QUIC-FormalVerification/qlogs \
-			   -v $(PWD)/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic \
-			   -v $(PWD)/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7 \
+			   -v $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/include/1.8:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.8 \
 			   -it $(IMPLEM)-ivy-gperf python3 run_experiments.py --mode $(MODE) --categories $(CATE) --update_include_tls \
 			   --timeout 180 --implementations $(IMPLEM) --iter $(ITER) --compile --gperf --initial_version 29 --alpn hq-29 --docker $(OPT) || true
 
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
-	# pprof $(PWD)/QUIC-Ivy/doc/examples/quic /tmp/prof.out
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
+	# pprof $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic /tmp/prof.out
 
 
 
@@ -189,21 +225,27 @@ test-rfc9000:
 			   -v $(PWD)/tls-keys:/tmp/QUIC-FormalVerification/tls-keys \
 			   -v $(PWD)/tickets:/tmp/QUIC-FormalVerification/tickets \
 			   -v $(PWD)/qlogs:/tmp/QUIC-FormalVerification/qlogs \
-			   -v $(PWD)/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic \
-			   -v $(PWD)/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7 \
+			   -v $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/include/1.8:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.8 \
 			   -it $(IMPLEM)-ivy python3 run_experiments.py --mode $(MODE) --categories $(CATE) --update_include_tls \
 			   --timeout 180 --implementations $(IMPLEM) --iter $(ITER) --compile  --initial_version 1 --alpn hq-interop --docker $(OPT) || true
 
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 
 change-permissions:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build
 
+test-local-server-rfc9000:
+	python3 run_experiments.py --mode server --categories global_tests --update_include_tls \
+			   --timeout 180 --iter $(ITER) --compile  --initial_version 1 --alpn hq-interop
+test-local-client-rfc9000:
+	python3 run_experiments.py --mode client --categories global_tests --update_include_tls \
+			   --timeout 180 --iter $(ITER) --compile  --initial_version 1 --alpn hq-interop
 
 test-vnet:
-	docker run --privileged -it picoquic-ivy ./setup_namespace.sh
+	docker run --privileged -it picoQUIC-Ivy-Attacker ./setup_namespace.sh
 
 launch-teams:
 	docker build -t teams -f Dockerfile.teams  .
@@ -211,8 +253,9 @@ launch-teams:
 	docker run --privileged  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$(DISPLAY) -it teams
 
 compose:
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/test/temp
-	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy/doc/examples/quic/build .
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/test/temp
+	sudo chown -R $(USER):$(USER) $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic/build .
+	xhost +
 	docker-compose up -d
 	bash update_etc_hosts.sh  # TODO make copy before
 
@@ -222,6 +265,12 @@ start-bash:
 			   -v $(PWD)/tls-keys:/tmp/QUIC-FormalVerification/tls-keys \
 			   -v $(PWD)/tickets:/tmp/QUIC-FormalVerification/tickets \
 			   -v $(PWD)/qlogs:/tmp/QUIC-FormalVerification/qlogs \
+<<<<<<< HEAD
 			   -v $(PWD)/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic \
 			   -v $(PWD)/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7 \
 			   -it $(IMPLEM)-ivy bash
+=======
+			   -v $(PWD)/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic \
+			   -v $(PWD)/QUIC-Ivy-Attacker/ivy/include/1.8:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.8 \
+			   -it $(IMPLEM)-ivy bash
+>>>>>>> 8965ef429b23bf08062aa15213038317590fbf47

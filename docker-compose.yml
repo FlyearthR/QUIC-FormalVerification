@@ -8,17 +8,31 @@ services:
     ports:
       - "49150:80"
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${PWD}/run_experiments.py:/tmp/QUIC-FormalVerification/run_experiments.py
+      - ${PWD}/utils/:/tmp/QUIC-FormalVerification/utils/
+      #- ${PWD}/webapp/server.py:/tmp/QUIC-FormalVerification/webapp/server.py
+      - ${PWD}/webapp:/tmp/QUIC-FormalVerification/webapp
+      - ${PWD}/cytoscape_config.json:/tmp/cytoscape_config.json
       - ${PWD}/tls-keys:/tmp/QUIC-FormalVerification/tls-keys
       - ${PWD}/tickets:/tmp/QUIC-FormalVerification/tickets
       - ${PWD}/qlogs:/tmp/QUIC-FormalVerification/qlogs
-      - ${PWD}/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic
-      - ${PWD}/QUIC-Ivy/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/ivy_to_cpp.py
-      - ${PWD}/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7
+      - ${PWD}/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_cpp_types.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_cpp_types.py
+      - ${PWD}/QUIC-Ivy-Attacker/ivy/:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_init.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_init.py
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_compiler.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_compiler.py
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_parser.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_parser.py
+      - ${PWD}/QUIC-Ivy-Attacker/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.7
     networks:
       - net
     privileged: true
     environment:
       - ROOT_PATH=${PWD} # TODO remove eventually
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=~/.Xauthority
+    restart: always
 
   # https://unix.stackexchange.com/questions/644176/how-to-permanently-add-self-signed-certificate-in-firefox
   ivy-visualizer:
@@ -29,10 +43,11 @@ services:
     ports:
       - "49149:80"
     #volumes:
-    #  - ${PWD}/QUIC-Ivy/doc/examples/quic/test/temp:/usr/src/vizualizer/public/temp
+    #  - ${PWD}/QUIC-Ivy-Attacker/doc/examples/quic/test/temp:/usr/src/vizualizer/public/temp
     networks:
       - net
     privileged: true
+    restart: always
   
   #################################################
   # Implementations workers
@@ -46,15 +61,27 @@ services:
     ports:
       - "49154:80"
     volumes:
+      - ${PWD}/run_experiments.py:/tmp/QUIC-FormalVerification/run_experiments.py
       - ${PWD}/tls-keys:/tmp/QUIC-FormalVerification/tls-keys
       - ${PWD}/tickets:/tmp/QUIC-FormalVerification/tickets
       - ${PWD}/qlogs:/tmp/QUIC-FormalVerification/qlogs
-      - ${PWD}/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic
-      - ${PWD}/QUIC-Ivy/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/ivy_to_cpp.py
-      - ${PWD}/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7
+      - ${PWD}/utils/:/tmp/QUIC-FormalVerification/utils/
+      # - ${PWD}/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_cpp_types.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_cpp_types.py
+      - ${PWD}/QUIC-Ivy-Attacker/ivy/:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/
+      - ${PWD}/QUIC-Ivy-Attacker/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.7
+      - /tmp/.X11-unix:/tmp/.X11-unix
     networks:
       - net
     privileged: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=~/.Xauthority
+      - MPLBACKEND='Agg'
+    restart: always
+    devices:
+      - /dev/dri:/dev/dri
 
   quant-ivy:
     hostname: quant-ivy
@@ -66,13 +93,17 @@ services:
     volumes:
       - ${PWD}/tls-keys:/tmp/QUIC-FormalVerification/tls-keys
       - ${PWD}/tickets:/tmp/QUIC-FormalVerification/tickets
+      - ${PWD}/utils/:/tmp/QUIC-FormalVerification/utils/
       - ${PWD}/qlogs:/tmp/QUIC-FormalVerification/qlogs
-      - ${PWD}/QUIC-Ivy/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy/doc/examples/quic
-      - ${PWD}/QUIC-Ivy/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/ivy_to_cpp.py
-      - ${PWD}/QUIC-Ivy/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy/ivy/include/1.7
+      # - ${PWD}/QUIC-Ivy-Attacker/doc/examples/quic:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/doc/examples/quic
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_to_cpp.py
+      # - ${PWD}/QUIC-Ivy-Attacker/ivy/ivy_cpp_types.py:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/ivy_cpp_types.py
+      - ${PWD}/QUIC-Ivy-Attacker/ivy/:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/
+      - ${PWD}/QUIC-Ivy-Attacker/ivy/include/1.7:/tmp/QUIC-FormalVerification/QUIC-Ivy-Attacker/ivy/include/1.7
     networks:
       - net
     privileged: true
+    restart: always
 
   #################################################
   # PlantUML -> useless still only png or svg -> not dynamic
