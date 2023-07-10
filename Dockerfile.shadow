@@ -2,25 +2,20 @@ FROM ivy:latest
 
 WORKDIR /
 
+RUN apt-get install -y libglib
+
 RUN git clone https://github.com/shadow/shadow.git && cd /shadow && git checkout v3.0.0
 
 WORKDIR /shadow
 
 ENV CC gcc
-ENV CONTAINER ubuntu:0.04
+ENV CONTAINER ubuntu:20.04
 ENV BUILDTYPE release
 ENV RUSTPROFILE minimal
 ENV PATH="/root/.local/bin:${PATH}"
 
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.4/cmake-3.26.4-linux-x86_64.tar.gz
 RUN tar xzf cmake-3.26.4-linux-x86_64.tar.gz
-RUN wget https://download.gnome.org/sources/glib/2.60/glib-2.60.7.tar.xz
-RUN tar xf glib-2.60.7.tar.xz
-
-WORKDIR /shadow/glib-2.60.7
-RUN meson _build
-RUN ninja -C _build
-RUN ninja -C _build install
 
 WORKDIR /shadow
 RUN ci/container_scripts/install_deps.sh && ci/container_scripts/install_extra_deps.sh
