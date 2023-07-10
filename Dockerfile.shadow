@@ -2,7 +2,7 @@ FROM ivy:latest
 
 WORKDIR /
 
-RUN apt-get install -y libglib
+RUN apt-get update && apt-get install libglib2.0 -y
 
 RUN git clone https://github.com/shadow/shadow.git && cd /shadow && git checkout v3.0.0
 
