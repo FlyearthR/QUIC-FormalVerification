@@ -1,20 +1,30 @@
 FROM ivy:latest
 
-COPY shadow /src
+WORKDIR /
 
-WORKDIR /src
+RUN git clone https://github.com/shadow/shadow.git && cd /shadow && git checkout v3.0.0
+
+WORKDIR /shadow
 
 ENV CC gcc
-ENV CONTAINER ubuntu:18.04
+ENV CONTAINER ubuntu:0.04
 ENV BUILDTYPE release
 ENV RUSTPROFILE minimal
-
-RUN ci/container_scripts/install_deps.sh
-
-RUN ci/container_scripts/install_extra_deps.sh
-
-ENV PATH "/root/.cargo/bin:${PATH}"
-RUN ci/container_scripts/build_and_install.sh
-
 ENV PATH="/root/.local/bin:${PATH}"
-# ENTRYPOINT ["shadow"]
+
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.4/cmake-3.26.4-linux-x86_64.tar.gz
+RUN tar xzf cmake-3.26.4-linux-x86_64.tar.gz
+RUN wget https://download.gnome.org/sources/glib/2.60/glib-2.60.7.tar.xz
+RUN tar xf glib-2.60.7.tar.xz
+
+WORKDIR /shadow/glib-2.60.7
+RUN meson _build
+RUN ninja -C _build
+RUN ninja -C _build install
+
+WORKDIR /shadow
+RUN ci/container_scripts/install_deps.sh && ci/container_scripts/install_extra_deps.sh
+RUN rustup component add rustfmt --toolchain 1.69.0-x86_64-unknown-linux-gnu
+
+ENV PATH="/shadow/cmake-3.26.4-linux-x86_64/bin:/root/.cargo/bin:${PATH}"
+RUN ci/container_scripts/build_and_install.sh
