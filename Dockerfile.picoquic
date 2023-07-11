@@ -2,15 +2,16 @@ ARG image
 
 FROM $image:latest
 
-ADD quic-implementations/picoquic /tmp/QUIC-FormalVerification/quic-implementations/picoquic
+WORKDIR /tmp/QUIC-FormalVerification/quic-implementations
 
-WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/picoquic/
-RUN git checkout bb67995f2d7c0e577c2c8788313c3b580d3df9a7 # 639c9e685d37e74d357d3dd8599b9dbff90934af
-COPY ressources/picoquic/rfc9000/picoquic_internal.h  /tmp/QUIC-FormalVerification/quic-implementations/picoquic/picoquic/picoquic_internal.h
-RUN /usr/bin/cmake --version
-RUN /usr/bin/cmake .
-RUN make
-RUN ./picoquic_ct || true
+RUN git clone https://github.com/h2o/picotls.git
+
+ENV OPENSSL_INCLUDE_DIR=/usr/include/openssl
+WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/picotls
+RUN git checkout 047c5fe20bb9ea91c1caded8977134f19681ec76 && git submodule init && git submodule update && OPENSSL_INCLUDE_DIR="/usr/include/openssl" cmake . && make
+
+WORKDIR /tmp/QUIC-FormalVerification/quic-implementations
+RUN git clone https://github.com/private-octopus/picoquic.git && cd picoquic && git checkout bb67995f2d7c0e577c2c8788313c3b580d3df9a7 && /usr/bin/cmake . && make
 
 WORKDIR /tmp/QUIC-FormalVerification
 
