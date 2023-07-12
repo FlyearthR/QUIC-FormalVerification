@@ -19,7 +19,6 @@ RUN tar xzf cmake-3.26.4-linux-x86_64.tar.gz
 
 WORKDIR /shadow
 RUN ci/container_scripts/install_deps.sh && ci/container_scripts/install_extra_deps.sh
-RUN rustup component add rustfmt --toolchain 1.69.0-x86_64-unknown-linux-gnu
 
 ENV PATH="/shadow/cmake-3.26.4-linux-x86_64/bin:/root/.cargo/bin:${PATH}"
 RUN ci/container_scripts/build_and_install.sh
