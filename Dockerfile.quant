@@ -2,7 +2,8 @@ ARG image
 
 FROM $image:latest
 
-ADD quic-implementations/quant /tmp/QUIC-FormalVerification/quic-implementations/quant
+WORKDIR /tmp/QUIC-FormalVerification/quic-implementations
+RUN git clone https://github.com/NTAP/quant.git && cd quant && git checkout c5eed3afa0a084c0d933f8b6d8d1c829c799ba16
 
 RUN apt remove --fix-missing -y cmake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.12.4/cmake-3.12.4-Linux-x86_64.sh  
