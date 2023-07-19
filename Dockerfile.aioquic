@@ -2,11 +2,9 @@ ARG image
 
 FROM $image:latest
 
-ADD quic-implementations/aioquic /tmp/QUIC-FormalVerification/quic-implementations/aioquic
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/
 
-WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/aioquic/
-RUN git checkout d272be10b93b09b75325b139090007dae16b9f16 # RFC9000
+RUN git clone https://github.com/aiortc/aioquic.git && cd aioquic && git checkout d272be10b93b09b75325b139090007dae16b9f16
 
 WORKDIR /tmp/QUIC-FormalVerification
 
