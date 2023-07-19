@@ -38,5 +38,7 @@ RUN cd /tmp/QUIC-FormalVerification/quic-implementations/aioquic; \
 RUN rm /tmp/QUIC-FormalVerification/quic-implementations/aioquic/examples/http3_client.py # TODO check
 COPY ressources/aioquic/rfc9000/http3_client.py /tmp/QUIC-FormalVerification/quic-implementations/aioquic/examples/http3_client.py
 
+RUN python3 -m pip install --upgrade pip
+
 WORKDIR /tmp/QUIC-FormalVerification
 
