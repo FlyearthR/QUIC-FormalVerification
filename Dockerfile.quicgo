@@ -1,0 +1,21 @@
+ARG image
+ 
+FROM $image:latest
+ 
+WORKDIR /tmp/QUIC-FormalVerification/quic-implementations
+ 
+RUN wget https://dl.google.com/go/go1.16.linux-amd64.tar.gz && tar xfz go1.16.linux-amd64.tar.gz && rm go1.16.linux-amd64.tar.gz
+ENV PATH="/tmp/QUIC-FormalVerification/quic-implementations/go/bin:${PATH}"
+
+WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/quic-go/
+
+RUN git clone https://github.com/quic-go/quic-go.git && cd quic-go && git checkout b5ef99a32c250fc63f89cc686c13a008c5419d01 && git submodule update --init && mkdir client server
+
+ADD ressources/quic-go/rfc9000/go_client/main.go /tmp/QUIC-FormalVerification/quic-implementations/quic-go/client/main.go
+ADD ressources/quic-go/rfc9000/go_server/main.go /tmp/QUIC-FormalVerification/quic-implementations/quic-go/server/main.go
+ADD ressources/quic-go/rfc9000/connection_id.go /tmp/QUIC-FormalVerification/quic-implementations/quic-go/internal/protocol/connection_id.go
+
+
+RUN go mod init github.com/lucas-clemente/quic-go && go get ./... && go build -o /tmp/QUIC-FormalVerification/quic-implementations/quic-go/client/client /tmp/QUIC-FormalVerification/quic-implementations/quic-go/client/main.go && go build -o /tmp/QUIC-FormalVerification/quic-implementations/quic-go/server/server /tmp/QUIC-FormalVerification/quic-implementations/quic-go/server/main.go
+ 
+WORKDIR /tmp/QUIC-FormalVerification
