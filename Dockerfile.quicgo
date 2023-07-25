@@ -15,6 +15,6 @@ ADD ressources/quic-go/rfc9000/connection_id.go /tmp/QUIC-FormalVerification/qui
 
 WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/quic-go/
 
-RUN go mod init github.com/lucas-clemente/quic-go && go get ./... && go build -o /tmp/QUIC-FormalVerification/quic-implementations/quic-go/client/client /tmp/QUIC-FormalVerification/quic-implementations/quic-go/client/main.go && go build -o /tmp/QUIC-FormalVerification/quic-implementations/quic-go/server/server /tmp/QUIC-FormalVerification/quic-implementations/quic-go/server/main.go
+RUN go get ./... && go build -o /tmp/QUIC-FormalVerification/quic-implementations/quic-go/client/client /tmp/QUIC-FormalVerification/quic-implementations/quic-go/client/main.go && go build -o /tmp/QUIC-FormalVerification/quic-implementations/quic-go/server/server /tmp/QUIC-FormalVerification/quic-implementations/quic-go/server/main.go
  
 WORKDIR /tmp/QUIC-FormalVerification
