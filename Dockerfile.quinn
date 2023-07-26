@@ -5,7 +5,7 @@ FROM $image:latest
 WORKDIR /tmp/QUIC-FormalVerification/quic-implementations
 
 RUN git clone https://github.com/quinn-rs/quinn.git && cd quinn && git checkout 4395b969a69b9e39bef1333e44312bf2548d4e1c && git submodule update --init --recursive && git submodule update --recursive
-ADD ressources/quinn/rfc9000/lib.rs quinn-proto/src/lib.rs
+#ADD ressources/quinn/rfc9000/lib.rs quinn-proto/src/lib.rs
 
 WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/quinn
 
