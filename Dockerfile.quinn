@@ -9,7 +9,7 @@ ADD ressources/quinn/rfc9000/lib.rs quinn-proto/src/lib.rs
 
 WORKDIR /tmp/QUIC-FormalVerification/quic-implementations/quinn
 
-RUN $HOME/.cargo/env && cargo build --examples && cargo test
+RUN bash $HOME/.cargo/env && cargo build --examples && cargo test
 
 WORKDIR /tmp/QUIC-FormalVerification
 
