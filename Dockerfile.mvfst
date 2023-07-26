@@ -4,7 +4,7 @@ FROM $image:latest
 
 WORKDIR /tmp/QUIC-FormalVerification/quic-implementations
 
-RUN git clone https://github.com/facebookincubator/mvfst.git && cd mvfst && git checkout a34dc237104c6df3daca48afac51ca5777c5490e && bash build_helper.sh && rm -r quic/samples/echo && cp -r rfc9000/echo/ quic/samples/
+RUN git clone https://github.com/facebookincubator/mvfst.git && cd mvfst && git checkout a34dc237104c6df3daca48afac51ca5777c5490e && bash build_helper.sh
 
 ADD ressources/mvfst/rfc9000/QuicClientTransport.h /tmp/QUIC-FormalVerification/quic-implementations/mvfst/quic/client/QuicClientTransport.h
 ADD ressources/mvfst/rfc9000/QuicConstants.h /tmp/QUIC-FormalVerification/quic-implementations/mvfst/quic/QuicConstants.h
