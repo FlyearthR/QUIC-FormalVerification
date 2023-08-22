@@ -4,7 +4,7 @@ FROM $image:latest
 
 WORKDIR /tmp/QUIC-FormalVerification/quic-implementations
 
-RUN git clone https://github.com/FlyearthR/picoquic.git && cd picoquic && git checkout tricky_fix_shadow && /usr/bin/cmake . && make
+RUN git clone https://github.com/FlyearthR/picoquic.git && cd picoquic && /usr/bin/cmake . && make
 
 WORKDIR /tmp/QUIC-FormalVerification
 
